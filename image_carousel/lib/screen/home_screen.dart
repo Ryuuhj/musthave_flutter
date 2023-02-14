@@ -12,10 +12,11 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-
-
 //2. _HomeScreenState 정의
 class _HomeScreenState extends State<HomeScreen> {
+  //PageController 생성
+  final PageController pageController = PageController();
+
   // initState() 함수 등록
   @override
   void initState() {
@@ -25,8 +26,26 @@ class _HomeScreenState extends State<HomeScreen> {
     //타이머 추가
     Timer.periodic(
       Duration(seconds: 3),
-          (timer) {
-        print('실행!');
+      (timer) {
+        //현재 페이지 받아올 변수 선언 - controller 통해 가져옴
+        int? nextPage = pageController.page?.toInt();
+
+        //nextPage-> null인 경우 예외 처리
+        if (nextPage == null) {
+          return;
+        }
+        //순환 하도록 정의
+        if (nextPage == 4) {
+          nextPage = 0;
+        } else {
+          nextPage++;
+        }
+        //페이지 변경 동작 정의
+        pageController.animateToPage(
+          nextPage, //1) 이동할 페이지 (int)
+          duration: Duration(microseconds: 500), //2) 이동 시 소요시간
+          curve: Curves.ease, //3) 페이지 변경 애니메이션 작동 방식
+        );
       },
     );
   }
@@ -39,6 +58,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       //실행 결과로 위젯 반환
       body: PageView(
+        //PageView 위젯에 컨트롤러 등록
+        controller: pageController,
+
         children: [1, 2, 3, 4, 5] //샘플 리스트 생성
             .map(
               //리스트 별 각 위젯으로 매핑
