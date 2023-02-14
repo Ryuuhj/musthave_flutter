@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class HomeScreen extends StatelessWidget {
+  //1. StatefulWidget 정의
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}):
-      super(key: key);
+        super(key: key);
+
+  //initState()
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+
+}
+
+  //2. _HomeScreenState 정의
+class _HomeScreenState extends State<HomeScreen> {
 
   @override
-  Widget build(BuildContext context) { //생명주기 차트에서 build() -> state dirty일 때 재실행
+  Widget build(BuildContext context) {
     //상태바 색상 변경
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
 
