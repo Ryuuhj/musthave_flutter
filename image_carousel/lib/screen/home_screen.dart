@@ -12,27 +12,29 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
+
+
 //2. _HomeScreenState 정의
 class _HomeScreenState extends State<HomeScreen> {
+  // initState() 함수 등록
+  @override
+  void initState() {
+    //부모 initState() 실행
+    super.initState();
+
+    //타이머 추가
+    Timer.periodic(
+      Duration(seconds: 3),
+          (timer) {
+        print('실행!');
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     //상태바 색상 변경
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
-
-    // initState() 함수 등록
-    @override
-    void initState() {
-      //부모 initState() 실행
-      super.initState();
-
-      //타이머 추가
-      Timer.periodic(
-        Duration(seconds: 3),
-        (timer) {
-          print('실행!');
-        },
-      );
-    }
 
     return Scaffold(
       //실행 결과로 위젯 반환
